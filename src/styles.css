@@ -1,0 +1,81 @@
+/* @import 'https://fonts.googleapis.com/css?family=Noto%20Emoji';
+
+@font-face {
+  font-family: 'Material Icons';
+  font-style: normal;
+  font-weight: 400;
+  src: url(https://fonts.gstatic.com/s/materialicons/v140/flUhRq6tzZclQEJ-Vdg-IuiaDsNc.woff2) format('woff2');
+} */
+
+@font-face {
+  font-family: "Noto Color Emoji";
+  src: url(https://raw.githack.com/googlefonts/noto-emoji/main/fonts/NotoColorEmoji.ttf);
+  /* src: url(./font/NotoColorEmoji-Regular.ttf); */
+}
+
+@font-face {
+  font-family: "emojiOne";
+  src: url("./font/EmojiOneColor-SVGinOT.ttf"), local("emojiOne");
+}
+
+body {
+  text-align: center;
+  margin: 50px;
+}
+
+* {
+  /* font-family: "Noto Color Emoji"; */
+  /* font-family: "Noto Color Emoji", "Apple Color Emoji", "Segoe UI Emoji"; */
+  font-family: "Noto Color Emoji", "Helvetica Neue", Helvetica, Arial,
+    sans-serif;
+  /* text-align: right;
+  direction: ltr; */
+}
+
+.custom-font-size {
+  font-size: 25px; /* Change the font size as needed */
+}
+
+.emoji-input,
+#emoji-input {
+  font-size: 24px;
+  padding: 10px;
+  width: 100%;
+  direction: unset;
+  /* direction: rtl;
+  text-align: left; */
+  min-height: 120px;
+  resize: none;
+}
+
+.emoji-container {
+  margin-top: 7px;
+  padding: 5px;
+  text-align: right;
+  letter-spacing: 0.1em; /* Adjust this value to achieve the desired margin */
+  line-height: 24px;
+}
+
+.emoji {
+  margin: 0;
+  padding: 0;
+  font-size: 24px;
+  cursor: pointer;
+  display: inline-block;
+  /* font-family: "Noto Emoji", "Material Icons"; */
+  /* font-family: "font-variant-emoji", "Noto Color Emoji", "Symbola"; */
+
+  /* box-shadow: 0 0 3px silver, 0 0 1px silver inset;
+  border-radius: 5px;
+  transition: box-shadow 0.5s, background 0.5s; */
+}
+
+.emoji:active,
+.emoji:hover {
+  border: 0.01em solid black;
+}
+
+.title {
+  font-weight: bold;
+  margin: 4px 0;
+}

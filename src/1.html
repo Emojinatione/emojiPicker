@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Emoji Keyboard</title>
+  </head>
+  <body>
+    <textarea id="emoji-input"></textarea>
+    <div id="emoji"></div>
+    <script>
+      add();
+
+      function add() {
+        arr = [
+          { min: 128513, max: 128591, name: "Emoticons" },
+          { min: 9986, max: 10160, name: "Dingbats" },
+          { min: 128640, max: 128704, name: "Transport and map symbols"}
+        ];
+        myDiv = document.getElementById("emoji");
+
+        for (var i = 0; i < arr.length; i++) {
+          var newEmojiContainer = document.createElement("div");
+          newEmojiContainer.className = "emoji-container";
+          var title = document.createElement("h4");
+          title.textContent = arr[i].name;
+          title.className = "title"
+          newEmojiContainer.appendChild(title);
+        //   newEmojiContainer.appendChild(document.createElement("br"))
+
+          for (let j = arr[i].min; j <= arr[i].max; j++) {
+            var newEmoji = document.createElement("span");
+            newEmoji.className = "emoji";
+            newEmoji.innerHTML = `&#${j}`; // Change this to your desired default emoji
+            newEmoji.onclick = function () {
+              insertEmoji(j);
+            };
+
+            newEmojiContainer.appendChild(newEmoji);
+          }
+
+          myDiv.appendChild(newEmojiContainer);
+        }
+      }
+
+      function insertEmoji(emoji) {
+        var inputField = document.getElementById("emoji-input");
+        inputField.value += String.fromCodePoint(emoji);
+      }
+    </script>
+  </body>
+</html>

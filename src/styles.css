@@ -28,8 +28,8 @@ body {
   /* font-family: "Noto Color Emoji", "Apple Color Emoji", "Segoe UI Emoji"; */
   font-family: "Noto Color Emoji", "Helvetica Neue", Helvetica, Arial,
     sans-serif;
-  /* text-align: right;
-  direction: ltr; */
+  text-align: right;
+  direction: ltr;
 }
 
 .custom-font-size {
@@ -41,9 +41,9 @@ body {
   font-size: 24px;
   padding: 10px;
   width: 100%;
-  direction: unset;
-  /* direction: rtl;
-  text-align: left; */
+  /* direction: unset; */
+  direction: rtl;
+  /* text-align: right; */
   min-height: 120px;
   resize: none;
 }
@@ -74,6 +74,17 @@ body {
 .emoji:hover {
   border: 0.01em solid black;
 }
+
+#emoji > * {
+  /* Apply a smooth transition for a visually appealing effect */
+  transition: transform 0.2s ease-in-out;
+}
+
+/* Apply the magnification on hover */
+#emoji:hover > * {
+  transform: scale(1.5); /* Adjust the scale factor as desired */
+}
+
 
 .title {
   font-weight: bold;

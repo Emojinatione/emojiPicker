@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Button, Col, Container, Form, InputGroup, Row } from 'react-bootstrap';
 import { isBrowser, isMobile } from 'react-device-detect';
-import { object } from 'yup';
+import ContentEditable from './ContentEditable';
 
 const App = () => {
     const [emojiInput, setEmojiInput] = useState('');
@@ -15,19 +15,19 @@ const App = () => {
     // };
 
     const insertEmoji = (emoji) => {
+        emoji = React.createElement('span', { title: emoji.name, children: emoji.char });
+        console.log(emoji.props.children)
         setMyEmoji(emoji);
-        setEmojiInput((prevInput) => prevInput + emoji);
+        setEmojiInput((prevInput) => prevInput + emoji.props.children);
     };
 
     const handleChangeInput = (e) => {
-        var text = e.target.value;
+        // var text = e.target.value;
+        //     //text = text.split("").reverse().join("");
+        var text = e.currentTarget.innerHTML;
+        var text1 = document.getElementById("emoji-input").innerHTML;
+        console.log(text, text1);
         //var text = e.currentTarget.textContent;
-        setEmojiInput(text);
-    };
-
-    const handleChangeInput1 = (e) => {
-        var text = e.currentTarget.textContent;
-        //text = text.split("").reverse().join("");
         setEmojiInput(text);
     };
 
@@ -71,8 +71,10 @@ const App = () => {
             .then((data) => setData(data))
             .catch((err) => console.error(err));
 
-        // console.log(`🚢`.charCodeAt(0).toString(16))
-        // console.log(`\u5535\u5699`);
+        const unicodeChar = `\u{E0030}`;
+        console.log(unicodeChar);
+        setEmojiInput(unicodeChar)
+
         // fetch(`https://emoji-api.com/emojis/grinning-squinting-face?access_key=${process.env.REACT_APP_EMOJI_KEY}`)
         //     .then((data) => data.json())
         //     .then((data) => console.log(data))
@@ -83,29 +85,40 @@ const App = () => {
     return (
         <>
             <Container className={`fixed-top sticky-top ${isMobile ? "mt-2" : "mt-4"}`} fluid={isMobile} id="myDivInput">
-                <Form.Control
-                    as="div"
+                {/* <Form.Control
+                    as="div" // Use textarea for better input handling
                     contentEditable="true"
-                    onInput={handleChangeInput1}
+                    value={emojiInput} // Bind value to the input
                     dangerouslySetInnerHTML={{ __html: emojiInput }}
+                    //onChange={handleChangeInput} 
+                    // onInput={handleChangeInput}
+                    // onBlur={handleChangeInput}
+                    className="mb-3 pt-1 pb-1 emoji-input"
+                    // style={{ fontSize: "25px" }}
+                    id="emoji-input"
+                /> */}
+
+                <ContentEditable // Use textarea for better input handling
+                    html={emojiInput} // Bind value to the input
+                    onChange={handleChangeInput}
+                    onInput={handleChangeInput}
+                    onBlur={handleChangeInput}
+                    value={emojiInput}
                     className="mb-3 pt-1 pb-1 emoji-input"
                     id="emoji-input"
-                ></Form.Control>
+                />
 
                 {/* <Form.Control
                     as="textarea"
-                    onChange={handleChangeInput}
-                    // onChange={e => console.log(e.currentTarget.textContent)}
+                    // onChange={handleChangeInput}
+                    onChange={e => setEmojiInput(e.target.value)}
                     // onInput={e => e.currentTarget.textContent}
                     value={emojiInput}
-                    className="mb-3 pt-1 pb-1"
-                    style={{ overflow: "hidden" }}
+                    className="mb-3 pt-1 pb-1 emoji-input"
+                    id="emoji-input"
                 ></Form.Control> */}
             </Container>
             <Container className="mb-3 pe-4 ps-4" fluid={isMobile} >
-                <div id="emoji">
-                </div>
-
                 <Form.Group>
                     <Row>
                         {/* <Col lg="auto" md="auto" sm="auto" xs="auto" className='ps-0'>
@@ -132,12 +145,17 @@ const App = () => {
                                 <InputGroup.Text className='alert alert-info'>{emojiGroup}</InputGroup.Text>
                             </InputGroup>
                         </Col>
+                        <Col lg="auto" md="auto" sm="auto" xs="auto" className='pe-0'>
+                            <InputGroup size="sm">
+                                <InputGroup.Text className='alert alert-info' id="emoji">{myEmoji}</InputGroup.Text>
+                            </InputGroup>
+                        </Col>
                     </Row>
                 </Form.Group>
                 <Row className="g-col-1 text-start mt-0">
                     {Object.keys(emojiData).map((group, i) => (
                         <Col lg="auto" md="auto" sm="auto" xs="auto" className='p-0 me-2 ms-0 mb-2'
-                        key={group}>
+                            key={group}>
                             <Button size="sm" key={i} onClick={() => setEmojiGroup(group)}
                                 variant={`${group === emojiGroup ? "light" : 'primary'}`}
                             >{group}</Button>
@@ -152,7 +170,7 @@ const App = () => {
                                 <Col key={emoji.name} xs="auto" sm="auto" md="auto" lg="auto" className='p-0 m-0'>
                                     <span
                                         className="emoji"
-                                        onClick={() => insertEmoji(emoji.char)}
+                                        onClick={() => insertEmoji(emoji)}
                                         title={emoji.name}
                                     >
                                         {emoji.char}
